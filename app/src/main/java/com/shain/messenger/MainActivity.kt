@@ -156,11 +156,12 @@ class MainActivity : AppCompatActivity(), MessageAdapter.QuoteClickListener {
 
     private fun TextView.getActualHeight(): Int {
         textQuotedMessage.measure(View.MeasureSpec.UNSPECIFIED, View.MeasureSpec.UNSPECIFIED)
-        return this.measuredHeight
+        return measuredHeight
     }
 
     override fun onQuoteClick(position: Int) {
         recyclerView.smoothScrollToPosition(position - 1)
+        (recyclerView.adapter as MessageAdapter).blinkItem(position)
     }
 }
 
