@@ -15,6 +15,7 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
 
     private var messagesList: MutableList<Message> = ArrayList()
     private val messagesListLiveData = MutableLiveData<List<Message>>()
+    var currentMessageHeight = 0
 
     init {
         messagesList.addAll(SampleMessages.getSampleMessages())
@@ -27,8 +28,17 @@ class MainActivityViewModel(application: Application) : AndroidViewModel(applica
         messagesListLiveData.value = messagesList
     }
 
+
+    fun addQuotedMessage(body: String, quote: String, quotePos: Int) {
+        messagesList.add(Message(body, System.currentTimeMillis(), MessageType.SEND, quote, quotePos))
+        messagesList.add(Message(body, System.currentTimeMillis(), MessageType.RECEIVED, quote, quotePos))
+        messagesListLiveData.value = messagesList
+    }
+
+
     fun getDisplayMessage(): LiveData<List<Message>> {
         return messagesListLiveData
     }
+
 
 }
